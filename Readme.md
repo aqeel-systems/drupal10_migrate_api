@@ -69,3 +69,6 @@ Missing Bundle Entity: If you encounter the error Missing bundle entity, it like
 
 Migration Errors: If the migration doesn't run, ensure that the migration group and configuration files are correctly set up and that the source URL is accessible.
 
+***Notes:
+Add this line in settings.php
+$config_directories['sync'] = '../config/sync';

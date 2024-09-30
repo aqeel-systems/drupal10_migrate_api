@@ -1,0 +1,9 @@
+name: 'JSON Migration'
+type: module
+description: 'Migrates users and companies from JSONPlaceholder API.'
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools

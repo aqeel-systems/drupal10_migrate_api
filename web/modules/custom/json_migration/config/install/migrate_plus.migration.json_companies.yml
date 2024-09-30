@@ -1,0 +1,62 @@
+id: json_companies
+label: 'Company Migration'
+migration_group: custom_json_migrations
+
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls:
+    - 'https://jsonplaceholder.typicode.com/users'
+  ids:
+    id:
+      type: integer
+  fields:
+    -
+      name: 'company.name'
+      label: 'Company Name'
+    -
+      name: 'company.catchPhrase'
+      label: 'Catch Phrase'
+    -
+      name: 'company.bs'
+      label: 'Business Slogan'
+    -
+      name: 'address.street'
+      label: 'Street'
+    -
+      name: 'address.suite'
+      label: 'Suite'
+    -
+      name: 'address.city'
+      label: 'City'
+    -
+      name: 'address.zipcode'
+      label: 'Zipcode'
+    -
+      name: 'address.geo.lat'
+      label: 'Latitude'
+    -
+      name: 'address.geo.lng'
+      label: 'Longitude'
+
+process:
+  id: company.id
+  title: company.name
+  field_company_catchphrase: company.catchPhrase
+  field_company_bs: company.bs
+  field_address_street: address.street
+  field_address_suite: address.suite
+  field_address_city: address.city
+  field_address_zipcode: address.zipcode
+  field_geo_latitude: address.geo.lat
+  field_geo_longitude: address.geo.lng
+
+destination:
+  plugin: 'entity:node'
+  default_bundle: company
+
+dependencies:
+  enforced:
+    module:
+      - json_migration

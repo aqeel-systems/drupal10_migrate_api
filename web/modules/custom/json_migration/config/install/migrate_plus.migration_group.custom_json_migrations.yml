@@ -1,0 +1,5 @@
+id: custom_json_migrations
+label: 'Custom JSON Migrations'
+description: 'Migration group for importing data from JSONPlaceholder API.'
+shared_configuration: []
+module: migrate_plus

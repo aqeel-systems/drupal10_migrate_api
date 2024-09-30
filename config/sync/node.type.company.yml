@@ -1,0 +1,18 @@
+uuid: c478124a-8d5f-471f-8e46-19c31fe93a34
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Company
+type: company
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

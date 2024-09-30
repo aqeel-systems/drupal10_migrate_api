@@ -1,0 +1,19 @@
+uuid: a0015669-f150-43c5-9903-18757a1a9b9a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_company_catchphrase
+    - node.type.company
+id: node.company.field_company_catchphrase
+field_name: field_company_catchphrase
+entity_type: node
+bundle: company
+label: 'Company Catchphrase'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

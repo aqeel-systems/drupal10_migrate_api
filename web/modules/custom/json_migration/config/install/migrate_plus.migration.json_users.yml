@@ -1,0 +1,70 @@
+id: json_users
+label: 'User Migration'
+migration_group: custom_json_migrations
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls:
+    - 'https://jsonplaceholder.typicode.com/users'
+  ids:
+    id:
+      type: integer
+  fields:
+    -
+      name: 'id'
+      label: 'User ID'
+    -
+      name: 'name'
+      label: 'Name'
+    -
+      name: 'username'
+      label: 'Username'
+    -
+      name: 'email'
+      label: 'Email'
+    -
+      name: 'phone'
+      label: 'Phone'
+    -
+      name: 'website'
+      label: 'Website'
+    -
+      name: 'company.name'
+      label: 'Company Name'
+    -
+      name: 'address.street'
+      label: 'Street'
+    -
+      name: 'address.suite'
+      label: 'Suite'
+    -
+      name: 'address.city'
+      label: 'City'
+    -
+      name: 'address.zipcode'
+      label: 'Zipcode'
+process:
+  id: id
+  name: name
+  field_username: username
+  mail: email
+  field_phone: phone
+  field_website: website
+  field_address_street: address.street
+  field_address_suite: address.suite
+  field_address_city: address.city
+  field_address_zipcode: address.zipcode
+  field_company:
+    plugin: entity_lookup
+    entity_type: node
+    bundle_key: type
+    bundle: company
+    value_key: title
+    source: company.name
+destination:
+  plugin: entity:user
+dependencies:
+  enforced:
+    module:
+      - json_migration

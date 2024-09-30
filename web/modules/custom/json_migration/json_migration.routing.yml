@@ -1,0 +1,7 @@
+json_migration.company_users:
+  path: '/company-users'
+  defaults:
+    _controller: '\Drupal\json_migration\Controller\UserCompanyController::display'
+    _title: 'Users and Companies'
+  requirements:
+    _permission: 'access content'

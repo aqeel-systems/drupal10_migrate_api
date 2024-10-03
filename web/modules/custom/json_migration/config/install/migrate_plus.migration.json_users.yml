@@ -12,30 +12,48 @@ source:
     id:
       type: integer
   fields:
-    - name: 'id'
+    - name: id
       label: 'User ID'
       selector: id
-    - name: 'name'
+    - name: name
       label: 'Name'
       selector: name
-    - name: 'username'
+    - name: username
       label: 'Username'
       selector: username
-    - name: 'email'
+    - name: mail
       label: 'Email'
       selector: email
-    - name: 'company_name'
+    - name: website
+      label: 'Website'
+      selector: website
+    - name: company_name
       label: 'Company Name'
-      selector: company.name
-    - name: 'address.street'
+      selector: 'company/name'
+    - name: street
       label: 'Street'
-      selector: address.street
+      selector: address/street
+    - name: suite
+      label: 'Suite'
+      selector: 'address/suite'
+    - name: city
+      label: 'City'
+      selector: 'address/city'
+    - name: zipcode
+      label: 'Zipcode'
+      selector: 'address/zipcode'
 
 process:
   id: id
   name: name
   field_username: username
   mail: email
+  field_phone: phone
+  field_street: street
+  field_suite: suite
+  field_zipcode: zipcode
+  field_city: city
+  field_website: website
   field_company:
     plugin: entity_lookup
     entity_type: node

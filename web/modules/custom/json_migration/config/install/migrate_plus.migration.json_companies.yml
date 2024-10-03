@@ -13,15 +13,15 @@ source:
     - name: id
       label: 'Company ID'
       selector: id
-    - name: name
-      label: 'Person Name'
-      selector: name
+    - name: company_name
+      label: 'Company Name'
+      selector: 'company/name'
     - name: catchPhrase
       label: 'Company Industry'
-      selector: company.catchPhrase
+      selector: 'company/catchPhrase'
     - name: bs
       label: 'Company Business'
-      selector: company.bs
+      selector: 'company/bs'
   ids:
     id:
       type: integer
@@ -29,10 +29,10 @@ process:
   type:
     plugin: default_value
     default_value: company
-  title: name # Ensure this maps to the correct field in your JSON
-  field_company_name: company.name
-  field_company_catchphrase: company.catchPhrase
-  field_company_bs: company.bs
+  title: company_name # Ensure this maps to the correct field in your JSON
+  field_company_name: company_name
+  field_company_catchphrase: catchPhrase
+  field_company_bs: bs
   sticky:
     plugin: default_value
     default_value: 0

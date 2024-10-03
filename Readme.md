@@ -24,6 +24,7 @@ composer install
 3. Set Up the Local Environment
    Make sure your local development environment (DDEV, LAMP, etc.) is running and Drupal is installed.
 
+
 4. Import Configuration
    Once the environment is up, you need to import the configuration to set up content types, fields, and other configurations:
 
@@ -33,18 +34,23 @@ vendor/bin/drush config-import --partial --source=../config/sync-partial
 
 This will import the content type company, along with its fields, and add the necessary user fields.
 
+
 5. Run Database Updates
    After importing the configuration, update the database to apply any necessary schema updates:
 
 vendor/bin/drush updatedb
+
 6. Clear Cache
    Clear Drupal caches to make sure all changes are applied:
 
 vendor/bin/drush cr
+
+
 7. Enable the Custom Module
    To enable the custom module for migration:
 
 vendor/bin/drush pm:enable json_migration
+
 8. Running the Migration
    To run the migration and pull user and company data from the JSONPlaceholder API, execute the following command:
 
@@ -55,10 +61,13 @@ This will fetch data from the API and save it into the company content type and 
     - vendor/bin/drush migrate:import json_companies
     - vendor/bin/drush migrate:import json_users
 
+
 9. Rollback the Migration (Optional)
-   If you want to undo the migration, you can run:
+If you want to undo the migration, you can run:
 
 vendor/bin/drush migrate:rollback json_users
+
+
 10. View Imported Data
     After running the migration, you can view the imported users and companies:
     Route: /company-users

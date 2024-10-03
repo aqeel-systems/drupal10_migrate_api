@@ -29,6 +29,7 @@ composer install
 
 vendor/bin/drush config-import --partial --source=../config/sync-partial
 
+  - After the config imports, You might want to enable the newly created fields for web display
 
 This will import the content type company, along with its fields, and add the necessary user fields.
 
@@ -49,6 +50,10 @@ vendor/bin/drush pm:enable json_migration
 
 vendor/bin/drush migrate-import json_users
 This will fetch data from the API and save it into the company content type and Drupal user entities.
+
+ - Run the companies Migration first by using command or using Web interface:
+    - vendor/bin/drush migrate:import json_companies
+    - vendor/bin/drush migrate:import json_users
 
 9. Rollback the Migration (Optional)
    If you want to undo the migration, you can run:

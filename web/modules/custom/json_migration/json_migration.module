@@ -4,3 +4,79 @@
  * @file
  * Contains custom code for the JSON Migration module.
  */
+
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate\Row;
+
+use GuzzleHttp\Client;
+use Drupal\file\Entity\File;
+use Drupal\Core\File\FileSystemInterface;
+
+/**
+ * Implements hook_migration_plugins_alter().
+ */
+function json_migration_migration_plugins_alter(array &$migrations)
+{
+  // Check if the 'company' migration exists.
+  if (isset($migrations['migration_config_deriver:json_companies'])) {
+    // Fetch the JSON file before the migration.
+    $url = 'https://jsonplaceholder.typicode.com/users';
+    $destination = 'json_migration/companies.json';
+    fetch_and_save_json($url, $destination);
+  }
+}
+
+
+/**
+ * Fetch JSON data from URL and save it as a local file.
+ */
+function fetch_and_save_json($url, $destination)
+{
+  $client = new Client();
+
+
+  try {
+    // Define the Guzzle client and request the JSON data.
+    $response = $client->request('GET', $url);
+
+    // Check if the response is successful.
+    if ($response->getStatusCode() === 200) {
+      // Get the content and decode the JSON data.
+      $json_data = $response->getBody()->getContents();
+      $json_data = json_decode($json_data, true);
+
+      // Define the destination path in the public files directory.
+      $destination = 'companies.json';
+      $file_system = \Drupal::service('file_system');
+
+      // Use the public file system (sites/default/files) to get the full path.
+      $public_path = 'public://json_migration';
+
+      // Ensure the directory exists, create it if not.
+      $file_system->prepareDirectory($public_path, \Drupal\Core\File\FileSystemInterface::CREATE_DIRECTORY);
+
+      // Define the full path for saving the file in public directory.
+      $full_path = $public_path . '/' . $destination;
+
+      // Save the JSON content to the specified path in the public directory.
+      $content = json_encode($json_data);
+      $file_system->saveData($content, $full_path, \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
+
+      // If you want to create a Drupal file entity for the saved file.
+      $file = File::create([
+        'uri' => $full_path,
+      ]);
+      $file->setPermanent();
+      $file->save();
+
+      // Display success message.
+      \Drupal::messenger()->addStatus('JSON file fetched and saved successfully to the public files directory.');
+    }
+  } catch (Exception $e) {
+    // Display an error message in case of failure.
+    \Drupal::messenger()->addError('Error fetching JSON: ' . $e->getMessage());
+  }
+
+}
+

@@ -10,8 +10,6 @@ class UserCompanyController extends ControllerBase {
 
   public function display() {
     $users = User::loadMultiple();  // Load all users
-    $output = '<h2>Users and their Companies</h2><ul>';
-
     foreach ($users as $index => $user) {
 
       // Check if the user has the field_company field and it's not empty

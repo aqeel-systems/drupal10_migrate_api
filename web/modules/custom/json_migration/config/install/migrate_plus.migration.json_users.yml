@@ -1,69 +1,56 @@
 id: json_users
 label: 'User Migration'
 migration_group: custom_json_migrations
+
 source:
   plugin: url
-  data_fetcher_plugin: http
+  data_fetcher_plugin: file
   data_parser_plugin: json
   urls:
-    - 'https://jsonplaceholder.typicode.com/users'
+    - 'public://json_migration/companies.json'
   ids:
     id:
       type: integer
   fields:
-    -
-      name: 'id'
+    - name: 'id'
       label: 'User ID'
-    -
-      name: 'name'
+      selector: id
+    - name: 'name'
       label: 'Name'
-    -
-      name: 'username'
+      selector: name
+    - name: 'username'
       label: 'Username'
-    -
-      name: 'email'
+      selector: username
+    - name: 'email'
       label: 'Email'
-    -
-      name: 'phone'
-      label: 'Phone'
-    -
-      name: 'website'
-      label: 'Website'
-    -
-      name: 'company.name'
+      selector: email
+    - name: 'company_name'
       label: 'Company Name'
-    -
-      name: 'address.street'
+      selector: company.name
+    - name: 'address.street'
       label: 'Street'
-    -
-      name: 'address.suite'
-      label: 'Suite'
-    -
-      name: 'address.city'
-      label: 'City'
-    -
-      name: 'address.zipcode'
-      label: 'Zipcode'
+      selector: address.street
+
 process:
   id: id
   name: name
   field_username: username
   mail: email
-  field_phone: phone
-  field_website: website
-  field_address_street: address.street
-  field_address_suite: address.suite
-  field_address_city: address.city
-  field_address_zipcode: address.zipcode
   field_company:
     plugin: entity_lookup
     entity_type: node
     bundle_key: type
     bundle: company
     value_key: title
-    source: company.name
+    source: company_name
+
 destination:
   plugin: entity:user
+
+migration_dependencies:
+  required:
+    - json_companies
+
 dependencies:
   enforced:
     module:

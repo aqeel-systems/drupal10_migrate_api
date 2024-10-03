@@ -27,7 +27,9 @@ composer install
 4. Import Configuration
    Once the environment is up, you need to import the configuration to set up content types, fields, and other configurations:
 
-vendor/bin/drush config-import
+vendor/bin/drush config-import --partial --source=../config/sync-partial
+
+
 This will import the content type company, along with its fields, and add the necessary user fields.
 
 5. Run Database Updates
@@ -54,6 +56,7 @@ This will fetch data from the API and save it into the company content type and 
 vendor/bin/drush migrate:rollback json_users
 10. View Imported Data
     After running the migration, you can view the imported users and companies:
+    Route: /company-users
 
 Users: Check the user list (/admin/people) to see the newly imported users.
 Companies: View the company content type to see the imported company data (/admin/content).
@@ -69,6 +72,3 @@ Missing Bundle Entity: If you encounter the error Missing bundle entity, it like
 
 Migration Errors: If the migration doesn't run, ensure that the migration group and configuration files are correctly set up and that the source URL is accessible.
 
-***Notes:
-Add this line in settings.php
-$config_directories['sync'] = '../config/sync';

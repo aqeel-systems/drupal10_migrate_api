@@ -5,10 +5,10 @@ migration_tags:
   - json migrations
 source:
   plugin: url
-  data_fetcher_plugin: file
+  data_fetcher_plugin: http
   data_parser_plugin: json
   urls:
-    - 'public://json_migration/companies.json'
+    - 'https://jsonplaceholder.typicode.com/users'
   fields:
     - name: id
       label: 'Company ID'

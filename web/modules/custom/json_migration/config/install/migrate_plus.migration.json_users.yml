@@ -4,10 +4,10 @@ migration_group: custom_json_migrations
 
 source:
   plugin: url
-  data_fetcher_plugin: file
+  data_fetcher_plugin: http
   data_parser_plugin: json
   urls:
-    - 'public://json_migration/companies.json'
+    - 'https://jsonplaceholder.typicode.com/users'
   ids:
     id:
       type: integer
